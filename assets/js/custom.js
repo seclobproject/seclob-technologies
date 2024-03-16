@@ -1191,30 +1191,30 @@ const dsnParam = {
     });
   }
 
-  function sliderPortfolio($el = $(document)) {
-    let tl = gsap.timeline();
-    const pagination = {
-      next: [],
-      prev: [],
-    };
+ function sliderPortfolio($el = $(document)) {
+   let tl = gsap.timeline();
+   const pagination = {
+     next: [],
+     prev: [],
+   };
 
-    const initSlider = async function () {
-      const dsnSliderContent = this.querySelector(".dsn-slider-content");
-      await this.querySelectorAll(".content-slider .slide-item").forEach(
-        ($item, $index) => {
-          var _slideContent$querySe, _slideContent$querySe2;
+   const initSlider = async function () {
+     const dsnSliderContent = this.querySelector(".dsn-slider-content");
+     await this.querySelectorAll(".content-slider .slide-item").forEach(
+       ($item, $index) => {
+         var _slideContent$querySe, _slideContent$querySe2;
 
-          const slideContent = $item.querySelector(".slide-content");
-          $item.setAttribute("data-dsn-id", $index);
-          if (!slideContent) return;
-          slideContent === null || slideContent === void 0
-            ? void 0
-            : slideContent.setAttribute("data-dsn-id", $index);
-          if ($index === 0)
-            slideContent === null || slideContent === void 0
-              ? void 0
-              : slideContent.classList.add("dsn-active", "dsn-active-animate");
-          pagination.prev.push(`<div class="swiper-slide">
+         const slideContent = $item.querySelector(".slide-content");
+         $item.setAttribute("data-dsn-id", $index);
+         if (!slideContent) return;
+         slideContent === null || slideContent === void 0
+           ? void 0
+           : slideContent.setAttribute("data-dsn-id", $index);
+         if ($index === 0)
+           slideContent === null || slideContent === void 0
+             ? void 0
+             : slideContent.classList.add("dsn-active", "dsn-active-animate");
+         pagination.prev.push(`<div class="swiper-slide">
                             <div class="box-content w-100 d-flex align-items-center">
                                 <div class="prev-arrow">
                                     <div class="container-inner">
@@ -1241,7 +1241,7 @@ const dsnParam = {
                                 }</h6></div>
                             </div>
                         </div>`);
-          pagination.next.push(`<div class="swiper-slide">
+         pagination.next.push(`<div class="swiper-slide">
                             <div class="box-content w-100 d-flex align-items-center justify-content-end">
                                 <div class='box-title'><h6 class='sm-title-block'>${
                                   (_slideContent$querySe2 =
@@ -1269,357 +1269,363 @@ const dsnParam = {
                                 </div>
                             </div>
                         </div>`);
-          dsnSliderContent === null || dsnSliderContent === void 0
-            ? void 0
-            : dsnSliderContent.append(slideContent);
-        }
-      );
-      pagination.next.push(pagination.next.shift());
-      pagination.prev.unshift(pagination.prev.pop());
-      const nextCon = this.querySelector(".next-paginate");
-      if (nextCon)
-        nextCon.innerHTML = `<div class="swiper-wrapper">${pagination.next.join(
-          " "
-        )}</div>`;
-      const navContainer = this.querySelector(".prev-paginate");
-      if (navContainer)
-        navContainer.innerHTML = `<div class="swiper-wrapper">${pagination.prev.join(
-          " "
-        )}</div>`;
-      await this.querySelectorAll(
-        '.dsn-slider-content .slide-content [data-dsn-split="chars"]'
-      ).forEach(function ($item) {
-        dsnGrid.spltting.Char($item, true);
-      });
-      await this.querySelectorAll(".dsn-slider-content .head-meta").forEach(
-        function ($item) {
-          dsnGrid.spltting.Items($item, "span");
-        }
-      );
-    };
+         dsnSliderContent === null || dsnSliderContent === void 0
+           ? void 0
+           : dsnSliderContent.append(slideContent);
+       }
+     );
+     pagination.next.push(pagination.next.shift());
+     pagination.prev.unshift(pagination.prev.pop());
+     const nextCon = this.querySelector(".next-paginate");
+     if (nextCon)
+       nextCon.innerHTML = `<div class="swiper-wrapper">${pagination.next.join(
+         " "
+       )}</div>`;
+     const navContainer = this.querySelector(".prev-paginate");
+     if (navContainer)
+       navContainer.innerHTML = `<div class="swiper-wrapper">${pagination.prev.join(
+         " "
+       )}</div>`;
+     await this.querySelectorAll(
+       '.dsn-slider-content .slide-content [data-dsn-split="chars"]'
+     ).forEach(function ($item) {
+       dsnGrid.spltting.Char($item, true);
+     });
+     await this.querySelectorAll(".dsn-slider-content .head-meta").forEach(
+       function ($item) {
+         dsnGrid.spltting.Items($item, "span");
+       }
+     );
+   };
 
-    const init = (swiper) => {
-      swiper.slides.forEach((item) => {
-        const video = item.querySelector(
-          ".swiper-slide:not(.swiper-slide-active) video"
-        );
-        if (video) video.pause();
-      });
-    };
+   const init = (swiper) => {
+     swiper.slides.forEach((item) => {
+       const video = item.querySelector(
+         ".swiper-slide:not(.swiper-slide-active) video"
+       );
+       if (video) video.pause();
+     });
+   };
 
-    const activeVideo = (swiper) => {
-      const newVideo = swiper.slides[swiper.activeIndex].querySelector("video");
-      const oldVideo =
-        swiper.slides[swiper.previousIndex].querySelector("video");
-      if (newVideo) newVideo.play();
-      if (oldVideo) oldVideo.pause();
-    };
+   const activeVideo = (swiper) => {
+     const newVideo = swiper.slides[swiper.activeIndex].querySelector("video");
+     const oldVideo =
+       swiper.slides[swiper.previousIndex].querySelector("video");
+     if (newVideo) newVideo.play();
+     if (oldVideo) oldVideo.pause();
+   };
 
-    const getContent = (swiper, contentRef) => {
-      const oldNum =
-        swiper.slides[swiper.previousIndex].getAttribute("data-dsn-id");
-      const newNum =
-        swiper.slides[swiper.activeIndex].getAttribute("data-dsn-id");
-      return [
-        newNum,
-        oldNum,
-        contentRef.querySelector('[data-dsn-id="' + newNum + '"]'),
-        contentRef.querySelector('[data-dsn-id="' + oldNum + '"]'),
-      ];
-    };
+   const getContent = (swiper, contentRef) => {
+     const oldNum =
+       swiper.slides[swiper.previousIndex].getAttribute("data-dsn-id");
+     const newNum =
+       swiper.slides[swiper.activeIndex].getAttribute("data-dsn-id");
+     return [
+       newNum,
+       oldNum,
+       contentRef.querySelector('[data-dsn-id="' + newNum + '"]'),
+       contentRef.querySelector('[data-dsn-id="' + oldNum + '"]'),
+     ];
+   };
 
-    function slideChange(swiper) {
-      const contentSlider = this.querySelector(".dsn-slider-content");
-      if (!contentSlider) return;
-      activeVideo(swiper);
-      const [newNum, oldNum, newContent, oldContent] = getContent(
-          swiper,
-          contentSlider
-        ),
-        [newTitle, oldTitle] = [
-          Array.from(newContent.querySelectorAll(".title .char") || []),
-          Array.from(oldContent.querySelectorAll(".title .char") || []),
-        ],
-        $isRight = oldNum < newNum,
-        animate = {
-          show: {
-            autoAlpha: 1,
-            y: 0,
-            stagger: {
-              amount: 0.3,
-              from: "center",
-            },
-            ease: "back.out(4)",
-            rotation: 0,
-            scale: 1,
-            yoyo: true,
-          },
-          hide: {
-            autoAlpha: 0,
-            y: !$isRight ? "25%" : "-25%",
-            stagger: {
-              amount: 0.3,
-              from: "center",
-            },
-            ease: "back.in(4)",
-            yoyo: true,
-            rotation: 8,
-            scale: 1.1,
-          },
-        };
-      const current = Number.parseInt(newNum, 10) + 1,
-        num = this.querySelector(".slider-current-index");
-      if (num) num.innerHTML = current > 9 ? current : "0" + current;
-      if (swiper.dsnOnChange)
-        swiper.dsnOnChange(newNum, oldNum, newContent, oldContent);
-      tl.progress(1);
-      tl = new gsap.timeline();
-      oldContent.classList.remove("dsn-active-animate");
-      tl.fromTo(oldTitle, 0.4, animate.show, animate.hide)
-        .call(function () {
-          oldContent.classList.remove("dsn-active");
-          newContent.classList.add("dsn-active");
-          newContent.classList.add("dsn-active-animate");
-        })
-        .fromTo(newTitle, 0.8, animate.hide, animate.show, "-=.005");
-    }
+   function slideChange(swiper) {
+     const contentSlider = this.querySelector(".dsn-slider-content");
+     if (!contentSlider) return;
+     activeVideo(swiper);
+     const [newNum, oldNum, newContent, oldContent] = getContent(
+         swiper,
+         contentSlider
+       ),
+       [newTitle, oldTitle] = [
+         Array.from(newContent.querySelectorAll(".title .char") || []),
+         Array.from(oldContent.querySelectorAll(".title .char") || []),
+       ],
+       $isRight = oldNum < newNum,
+       animate = {
+         show: {
+           autoAlpha: 1,
+           y: 0,
+           stagger: {
+             amount: 0.3,
+             from: "center",
+           },
+           ease: "back.out(4)",
+           rotation: 0,
+           scale: 1,
+           yoyo: true,
+         },
+         hide: {
+           autoAlpha: 0,
+           y: !$isRight ? "25%" : "-25%",
+           stagger: {
+             amount: 0.3,
+             from: "center",
+           },
+           ease: "back.in(4)",
+           yoyo: true,
+           rotation: 8,
+           scale: 1.1,
+         },
+       };
+     const current = Number.parseInt(newNum, 10) + 1,
+       num = this.querySelector(".slider-current-index");
+     if (num) num.innerHTML = current > 9 ? current : "0" + current;
+     if (swiper.dsnOnChange)
+       swiper.dsnOnChange(newNum, oldNum, newContent, oldContent);
+     tl.progress(1);
+     tl = new gsap.timeline();
+     oldContent.classList.remove("dsn-active-animate");
+     tl.fromTo(oldTitle, 0.4, animate.show, animate.hide)
+       .call(function () {
+         oldContent.classList.remove("dsn-active");
+         newContent.classList.add("dsn-active");
+         newContent.classList.add("dsn-active-animate");
+       })
+       .fromTo(newTitle, 0.8, animate.hide, animate.show, "-=.005");
+   }
 
-    const swiper = function () {
-      const option = Object.assign(
-        {},
-        {
-          on: {
-            init,
-            slideChange: slideChange.bind(this),
-          },
-        },
-        dsnGrid.getData(this, "option") || {},
-        {
-          autoHeight: false,
-        }
-      );
-      if (window.innerWidth > 767)
-        option.pagination = {
-          el: this.querySelector(".swiper-pagination"),
-          clickable: true,
-          dynamicBullets: true,
-          dynamicMainBullets: 1,
-          type: "bullets",
-        };
-      return new Swiper(
-        this.querySelector(".content-slider .swiper-container"),
-        option
-      );
-    };
+   const swiper = function () {
+     const option = Object.assign(
+       {},
+       {
+         on: {
+           init,
+           slideChange: slideChange.bind(this),
+         },
+         autoplay: {
+           delay: 5000, // Adjust delay as needed
+           pauseOnMouseEnter: true, // Pause autoplay on mouse hover
+           disableOnInteraction: false, // Do not disable autoplay on interaction
+         },
+       },
+       dsnGrid.getData(this, "option") || {},
+       {
+         autoHeight: false,
+       }
+     );
+     if (window.innerWidth > 767)
+       option.pagination = {
+         el: this.querySelector(".swiper-pagination"),
+         clickable: true,
+         dynamicBullets: true,
+         dynamicMainBullets: 1,
+         type: "bullets",
+       };
+     return new Swiper(
+       this.querySelector(".content-slider .swiper-container"),
+       option
+     );
+   };
 
-    const NavSwiper = function (container, swiper) {
-      var _swiper$passedParams2, _swiper$passedParams3;
+   const NavSwiper = function (container, swiper) {
+     var _swiper$passedParams2, _swiper$passedParams3;
 
-      const navContainer = container.querySelector(".next-paginate");
-      setTimeout(function () {
-        gsap.to($(container).find(".bg-container"), {
-          opacity: 1,
-        });
-      }, 3000);
-      if (!navContainer) return false;
+     const navContainer = container.querySelector(".next-paginate");
+     setTimeout(function () {
+       gsap.to($(container).find(".bg-container"), {
+         opacity: 1,
+       });
+     }, 3000);
+     if (!navContainer) return false;
 
-      if (window.innerWidth > 575) {
-        navContainer.querySelectorAll("h6.sm-title-block").forEach(($item) => {
-          const s = dsnGrid.spltting.Char($item);
-          s.chars.forEach(($item, $index) => {
-            $index = $index + 5;
-            $item.setAttribute("data-swiper-parallax-y", `${$index * 9}%`);
-            $item.setAttribute(`data-swiper-parallax-opacity`, "0");
-            $item.setAttribute("data-swiper-parallax-duration", $index * 100);
-            $item.classList.add("swiper-parallax-transform");
+     if (window.innerWidth > 575) {
+       navContainer.querySelectorAll("h6.sm-title-block").forEach(($item) => {
+         const s = dsnGrid.spltting.Char($item);
+         s.chars.forEach(($item, $index) => {
+           $index = $index + 5;
+           $item.setAttribute("data-swiper-parallax-y", `${$index * 9}%`);
+           $item.setAttribute(`data-swiper-parallax-opacity`, "0");
+           $item.setAttribute("data-swiper-parallax-duration", $index * 100);
+           $item.classList.add("swiper-parallax-transform");
 
-            if (s.chars.length === $index - 4) {
-              const arrow = s.el
-                .closest(".box-content")
-                .querySelector(".next-arrow");
-              if (!arrow) return;
-              arrow.setAttribute("data-swiper-parallax-y", `${$index * 3}%`);
-              arrow.setAttribute(`data-swiper-parallax-opacity`, "0");
-              arrow.setAttribute("data-swiper-parallax-duration", $index * 100);
-              arrow.classList.add("swiper-parallax-transform");
-            }
-          });
-        });
-      }
+           if (s.chars.length === $index - 4) {
+             const arrow = s.el
+               .closest(".box-content")
+               .querySelector(".next-arrow");
+             if (!arrow) return;
+             arrow.setAttribute("data-swiper-parallax-y", `${$index * 3}%`);
+             arrow.setAttribute(`data-swiper-parallax-opacity`, "0");
+             arrow.setAttribute("data-swiper-parallax-duration", $index * 100);
+             arrow.classList.add("swiper-parallax-transform");
+           }
+         });
+       });
+     }
 
-      const navSlider = new Swiper(navContainer, {
-        speed:
-          ((_swiper$passedParams2 = swiper.passedParams) === null ||
-          _swiper$passedParams2 === void 0
-            ? void 0
-            : _swiper$passedParams2.speed) || 1000,
-        loop:
-          ((_swiper$passedParams3 = swiper.passedParams) === null ||
-          _swiper$passedParams3 === void 0
-            ? void 0
-            : _swiper$passedParams3.loop) || false,
-        touchRatio: 0.2,
-        resistanceRatio: 0.65,
-        effect: "fade",
-        parallax: true,
-        allowTouchMove: false,
-      });
-      swiper.thumbs.swiper = navSlider;
-      setTimeout(function () {
-        navContainer.classList.remove("d-none");
-      }, 3000);
-      return navSlider;
-    };
+     const navSlider = new Swiper(navContainer, {
+       speed:
+         ((_swiper$passedParams2 = swiper.passedParams) === null ||
+         _swiper$passedParams2 === void 0
+           ? void 0
+           : _swiper$passedParams2.speed) || 1000,
+       loop:
+         ((_swiper$passedParams3 = swiper.passedParams) === null ||
+         _swiper$passedParams3 === void 0
+           ? void 0
+           : _swiper$passedParams3.loop) || false,
+       touchRatio: 0.2,
+       resistanceRatio: 0.65,
+       effect: "fade",
+       parallax: true,
+       allowTouchMove: false,
+     });
+     swiper.thumbs.swiper = navSlider;
+     setTimeout(function () {
+       navContainer.classList.remove("d-none");
+     }, 3000);
+     return navSlider;
+   };
 
-    const NavSwiperPrev = function (container, swiper, nav) {
-      var _swiper$passedParams4, _swiper$passedParams5;
+   const NavSwiperPrev = function (container, swiper, nav) {
+     var _swiper$passedParams4, _swiper$passedParams5;
 
-      const navContainer = container.querySelector(".prev-paginate");
-      setTimeout(function () {
-        gsap.to($(container).find(".bg-container"), {
-          opacity: 1,
-        });
-      }, 3000);
-      if (!navContainer) return false;
+     const navContainer = container.querySelector(".prev-paginate");
+     setTimeout(function () {
+       gsap.to($(container).find(".bg-container"), {
+         opacity: 1,
+       });
+     }, 3000);
+     if (!navContainer) return false;
 
-      if (window.innerWidth > 575) {
-        navContainer.querySelectorAll("h6.sm-title-block").forEach(($item) => {
-          const s = dsnGrid.spltting.Char($item);
-          s.chars.forEach(($item, $index) => {
-            if ($index === 0) {
-              $index = $index + 4;
-              const arrow = s.el
-                .closest(".box-content")
-                .querySelector(".prev-arrow");
-              arrow.setAttribute("data-swiper-parallax-y", `${$index * 3}%`);
-              arrow.setAttribute(`data-swiper-parallax-opacity`, "0");
-              arrow.classList.add("swiper-parallax-transform");
-              $index = 0;
-            }
+     if (window.innerWidth > 575) {
+       navContainer.querySelectorAll("h6.sm-title-block").forEach(($item) => {
+         const s = dsnGrid.spltting.Char($item);
+         s.chars.forEach(($item, $index) => {
+           if ($index === 0) {
+             $index = $index + 4;
+             const arrow = s.el
+               .closest(".box-content")
+               .querySelector(".prev-arrow");
+             arrow.setAttribute("data-swiper-parallax-y", `${$index * 3}%`);
+             arrow.setAttribute(`data-swiper-parallax-opacity`, "0");
+             arrow.classList.add("swiper-parallax-transform");
+             $index = 0;
+           }
 
-            $index = $index + 5;
-            $item.setAttribute("data-swiper-parallax-y", `${$index * 9}%`);
-            $item.setAttribute(`data-swiper-parallax-opacity`, "0");
-            $item.setAttribute("data-swiper-parallax-duration", $index * 100);
-            $item.classList.add("swiper-parallax-transform");
-          });
-        });
-      }
+           $index = $index + 5;
+           $item.setAttribute("data-swiper-parallax-y", `${$index * 9}%`);
+           $item.setAttribute(`data-swiper-parallax-opacity`, "0");
+           $item.setAttribute("data-swiper-parallax-duration", $index * 100);
+           $item.classList.add("swiper-parallax-transform");
+         });
+       });
+     }
 
-      const navSlider = new Swiper(navContainer, {
-        speed:
-          ((_swiper$passedParams4 = swiper.passedParams) === null ||
-          _swiper$passedParams4 === void 0
-            ? void 0
-            : _swiper$passedParams4.speed) || 1000,
-        loop:
-          ((_swiper$passedParams5 = swiper.passedParams) === null ||
-          _swiper$passedParams5 === void 0
-            ? void 0
-            : _swiper$passedParams5.loop) || false,
-        touchRatio: 0.2,
-        resistanceRatio: 0.65,
-        effect: "fade",
-        parallax: true,
-        allowTouchMove: false,
-      });
-      nav.thumbs.swiper = navSlider;
-      setTimeout(function () {
-        navContainer.classList.remove("d-none");
-      }, 3000);
-      return navSlider;
-    };
+     const navSlider = new Swiper(navContainer, {
+       speed:
+         ((_swiper$passedParams4 = swiper.passedParams) === null ||
+         _swiper$passedParams4 === void 0
+           ? void 0
+           : _swiper$passedParams4.speed) || 1000,
+       loop:
+         ((_swiper$passedParams5 = swiper.passedParams) === null ||
+         _swiper$passedParams5 === void 0
+           ? void 0
+           : _swiper$passedParams5.loop) || false,
+       touchRatio: 0.2,
+       resistanceRatio: 0.65,
+       effect: "fade",
+       parallax: true,
+       allowTouchMove: false,
+     });
+     nav.thumbs.swiper = navSlider;
+     setTimeout(function () {
+       navContainer.classList.remove("d-none");
+     }, 3000);
+     return navSlider;
+   };
 
-    const webGelOption = function () {
-      const images = [];
-      $(this)
-        .find(".bg-container .slide-item")
-        .each(function () {
-          const slide_content = $(this).find(".image-bg"),
-            id = $(this).data("dsn-id");
+   const webGelOption = function () {
+     const images = [];
+     $(this)
+       .find(".bg-container .slide-item")
+       .each(function () {
+         const slide_content = $(this).find(".image-bg"),
+           id = $(this).data("dsn-id");
 
-          if (slide_content.find("video").length) {
-            images[id] = {
-              posters: slide_content.find("video").get(0),
-              src: slide_content.find("video").attr("data-dsn-poster"),
-              overlay: slide_content.data("overlay"),
-            };
-          } else {
-            const img = slide_content.find("img");
-            const srcImg = img.data("dsn-src");
-            images[id] = {
-              src:
-                srcImg !== null && srcImg !== void 0 ? srcImg : img.attr("src"),
-              overlay: slide_content.data("overlay"),
-            };
-          }
-        });
-      if (images.length)
-        $(this).find(".bg-container").attr("data-overlay", images[0].overlay);
-      return images;
-    };
+         if (slide_content.find("video").length) {
+           images[id] = {
+             posters: slide_content.find("video").get(0),
+             src: slide_content.find("video").attr("data-dsn-poster"),
+             overlay: slide_content.data("overlay"),
+           };
+         } else {
+           const img = slide_content.find("img");
+           const srcImg = img.data("dsn-src");
+           images[id] = {
+             src:
+               srcImg !== null && srcImg !== void 0 ? srcImg : img.attr("src"),
+             overlay: slide_content.data("overlay"),
+           };
+         }
+       });
+     if (images.length)
+       $(this).find(".bg-container").attr("data-overlay", images[0].overlay);
+     return images;
+   };
 
-    $el.find(".main-slider:not(.dsn-swiper-initialized)").each(function () {
-      this.classList.add("dsn-swiper-initialized");
-      initSlider
-        .bind(this)()
-        .then(swiper.bind(this))
-        .then(
-          function (swiper) {
-            const handleNext = function () {
-                if (tl.isActive()) return;
+   $el.find(".main-slider:not(.dsn-swiper-initialized)").each(function () {
+     this.classList.add("dsn-swiper-initialized");
+     initSlider
+       .bind(this)()
+       .then(swiper.bind(this))
+       .then(
+         function (swiper) {
+           const handleNext = function () {
+               if (tl.isActive()) return;
 
-                if (
-                  swiper.slides.length === swiper.activeIndex + 1 &&
-                  !swiper.passedParams.loop
-                ) {
-                  swiper.slideTo(0);
-                } else {
-                  swiper.slideNext();
-                }
-              },
-              handlePrev = function () {
-                if (tl.isActive()) return;
+               if (
+                 swiper.slides.length === swiper.activeIndex + 1 &&
+                 !swiper.passedParams.loop
+               ) {
+                 swiper.slideTo(0);
+               } else {
+                 swiper.slideNext();
+               }
+             },
+             handlePrev = function () {
+               if (tl.isActive()) return;
 
-                if (swiper.activeIndex === 0 && !swiper.passedParams.loop) {
-                  swiper.slideTo(swiper.slides.length);
-                } else {
-                  swiper.slidePrev();
-                }
-              },
-              nextArrow = $(this).find(".next-arrow"),
-              prevArrow = $(this).find(".prev-arrow");
+               if (swiper.activeIndex === 0 && !swiper.passedParams.loop) {
+                 swiper.slideTo(swiper.slides.length);
+               } else {
+                 swiper.slidePrev();
+               }
+             },
+             nextArrow = $(this).find(".next-arrow"),
+             prevArrow = $(this).find(".prev-arrow");
 
-            if (nextArrow.length) nextArrow.on("click", handleNext);
-            if (prevArrow.length) prevArrow.on("click", handlePrev);
-            const nav = NavSwiper(this, swiper);
-            const navPrev = NavSwiperPrev(this, swiper, nav);
-            let webGel = null;
-            if (this.classList.contains("dsn-webgl"))
-              webGel = dsnGrid.WebGLDistortionHoverEffects({
-                imgs: webGelOption.bind(this)(),
-                ...(dsnGrid.getData(this, "webgl", {}) || {}),
-                direction: swiper.params.direction,
-                parent: this.querySelector(".bg-container"),
-                swiper,
+           if (nextArrow.length) nextArrow.on("click", handleNext);
+           if (prevArrow.length) prevArrow.on("click", handlePrev);
+           const nav = NavSwiper(this, swiper);
+           const navPrev = NavSwiperPrev(this, swiper, nav);
+           let webGel = null;
+           if (this.classList.contains("dsn-webgl"))
+             webGel = dsnGrid.WebGLDistortionHoverEffects({
+               imgs: webGelOption.bind(this)(),
+               ...(dsnGrid.getData(this, "webgl", {}) || {}),
+               direction: swiper.params.direction,
+               parent: this.querySelector(".bg-container"),
+               swiper,
 
-                onStart({ parent, item }) {
-                  parent.setAttribute("data-overlay", item.overlay);
-                },
-              });
-            dsnGrid.killAjax(function () {
-              if (nextArrow.length) nextArrow.off("click", handleNext);
-              if (prevArrow.length) prevArrow.off("click", handlePrev);
-              tl.kill();
-              swiper.destroy();
-              webGel.destroy();
-              if (nav) nav.destroy();
-              if (navPrev) navPrev.destroy();
-            });
-          }.bind(this)
-        );
-    });
-  }
+               onStart({ parent, item }) {
+                 parent.setAttribute("data-overlay", item.overlay);
+               },
+             });
+           dsnGrid.killAjax(function () {
+             if (nextArrow.length) nextArrow.off("click", handleNext);
+             if (prevArrow.length) prevArrow.off("click", handlePrev);
+             tl.kill();
+             swiper.destroy();
+             webGel.destroy();
+             if (nav) nav.destroy();
+             if (navPrev) navPrev.destroy();
+           });
+         }.bind(this)
+       );
+   });
+ }
+
 
   function mouseCirMove($off) {
     const $element = $("#dsn_cursor"),
