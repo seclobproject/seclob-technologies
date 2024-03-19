@@ -1091,6 +1091,9 @@ const dsnParam = {
               nextEl: $id.find(".swiper-next").get(0),
               prevEl: $id.find(".swiper-prev").get(0),
             },
+            autoplay: {
+              delay: 3000, // Adjust the delay (in milliseconds) as needed
+            },
           },
           $obj
         );
@@ -1298,6 +1301,9 @@ const dsnParam = {
      );
    };
 
+
+
+   
    const init = (swiper) => {
      swiper.slides.forEach((item) => {
        const video = item.querySelector(
