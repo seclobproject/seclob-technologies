@@ -15,6 +15,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '17'
+          distribution: 'adoptopenjdk'  # or 'temurin', 'zulu', etc.
 
       - name: Install SonarQube Scanner
         run: |
